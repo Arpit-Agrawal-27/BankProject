@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#g@8t9ae5msrgc-1$f*u-x&+*5r4q9_wwxr#zzrby=#fpy=#=j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pigibank.onrender.com']
 
 
 # Application definition
