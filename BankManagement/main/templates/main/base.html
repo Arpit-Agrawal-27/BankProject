@@ -1,0 +1,55 @@
+{% load static %} {% load django_browser_reload %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Pigi Bank{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div></div> <!-- Empty div for flex spacing -->
+      <div class="bank-home">🏦 Pigi Bank</div>
+      <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch">
+        <label for="theme-switch" class="toggle-btn">
+          <span class="toggle-icon">☀️</span>
+          <span class="toggle-text">Light</span>
+          <span class="ball"></span>
+        </label>
+      </div>
+    </header>
+
+    <!-- News Marquee -->
+    <div class="news-bar">
+      <marquee behavior="scroll" direction="left">
+        🚀 0% interest on education loans! | 💰 Home loan at just 6.5% | 💳
+        Apply for our Platinum Credit Card!
+      </marquee>
+    </div>
+
+    <!-- Main Content -->
+
+    <main>
+      
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>📞 Contact us: 1800-111-222 | ✉️ support@pigibank.com</p>
+      <p>&copy; 2025 Pigi Bank. All rights reserved.</p>
+    </footer>
+
+    {% django_browser_reload_script %}
+    <script src="{% static 'main/script.js' %}" defer></script>
+  </body>
+</html>
+

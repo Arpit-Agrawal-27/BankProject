@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% block title %}Fund Transfer{% endblock %}
+{% block content %}
+<section class="form-container">
+  <div class="form-box">
+    <h2>💸 Fund Transfer</h2>
+
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% elif success %}
+      <p style="color: green;">{{ success }}</p>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="receiver_account" placeholder="Receiver Account Number" required>
+      <input type="number" name="amount" placeholder="Amount (₹)" step="0.01" min="1" required>
+      <button type="submit" class="btn">Transfer</button>
+    </form>
+
+    <div class="center-btn" style="margin-top: 20px;">
+      <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

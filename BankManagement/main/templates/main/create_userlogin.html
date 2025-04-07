@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% block title %}Create Username{% endblock %}
+{% block content %}
+<section class="form-container">
+  <div class="form-box">
+    <h2>Create Username & Password</h2>
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="account_number" placeholder="Enter Account Number" required>
+      <input type="date" name="dob" placeholder="Enter Date of Birth" required>
+      <input type="text" name="username" placeholder="Create Username" required>
+      <input type="password" name="password" placeholder="Create Password" required>
+      <button type="submit" class="btn">Create</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

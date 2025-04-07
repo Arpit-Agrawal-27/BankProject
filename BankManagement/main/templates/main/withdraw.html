@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block title %}Withdraw{% endblock %}
+
+{% block content %}
+<section class="form-container">
+  <div class="form-box">
+    <h2>Withdraw Money</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="number" name="amount" placeholder="Enter amount" step="0.01" required>
+      <button type="submit" class="btn">Withdraw</button>
+    </form>
+
+    <p>Current Balance: ₹{{ user.balance }}</p>
+    <div class="center-btn">
+    <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
+  </div>
+  </div>
+  
+</section>
+{% endblock %}

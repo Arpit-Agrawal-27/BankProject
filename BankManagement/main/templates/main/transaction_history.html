@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+{% block title %}Transaction History{% endblock %}
+{% block content %}
+<section class="form-container">
+  <div class="form-box formtransaction" >
+    <h2>Transaction History for {{ user.name }}</h2>
+    {% if transactions %}
+      <div class="table-container">
+        <table class="transaction-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Amount (₹)</th>
+              <th>Description</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for transaction in transactions %}
+              <tr>
+                <td>{{ transaction.get_transaction_type_display }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.timestamp|date:"h:i:s A d-m-Y" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>No transactions found.</p>
+    {% endif %}
+    <div class="center-btn">
+      <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

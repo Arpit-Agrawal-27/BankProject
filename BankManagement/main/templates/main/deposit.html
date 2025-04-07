@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block title %}Deposit{% endblock %}
+{% block content %}
+<section class="form-container">
+  <div class="form-box">
+    <h2>Deposit Money</h2>
+
+    {% if success %}
+      <p style="color:green;">You deposited ₹{{ amount }} successfully.</p>
+      <p>New Balance: ₹{{ user.balance }}</p>
+    {% endif %}
+
+    {% if error %}
+      <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="number" name="amount" step="0.01" placeholder="Enter amount to deposit" required>
+      <button type="submit" class="btn">Deposit</button>
+    </form>
+
+    <div class="center-btn" style="margin-top: 20px;">
+      <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

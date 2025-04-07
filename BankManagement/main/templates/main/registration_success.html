@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block title %}Registration Successful{% endblock %}
+{% block content %}
+<section class="form-container">
+  <div class="form-box">
+    <h2>🎉 Registration Successful!</h2>
+    <p>Welcome, <strong>{{ user.name }}</strong></p>
+    <p>Your Account Number is: <strong>{{ user.account_number }}</strong></p>
+    <p>Now create your login credentials.</p>
+    <div class="center-btn">
+    <a href="{% url 'userlogin' %}" class="btn">Create Username & Password</a>
+  </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %} {% block title %}Dashboard - Pigi Bank{% endblock%} 
+{% block content %}
+<div class="dashboard-wrapper">
+  <div class="profile-section">
+    <div class="profile-header">
+      <h2>👤 {{ user.name }}</h2>
+      <p>Account Number: <strong>{{ user.account_number }}</strong></p>
+    </div>
+    <div class="profile-details">
+      <p><strong>DOB:</strong> {{ user.dob }}</p>
+      <p><strong>Gender:</strong> {{ user.gender }}</p>
+      <p><strong>City:</strong> {{ user.city }}</p>
+      <p><strong>Country:</strong> {{ user.country }}</p>
+      <p><strong>Pincode:</strong> {{ user.pincode }}</p>
+    </div>
+  </div>
+  <div class="action-buttons">
+    <h3>💼 Bank Actions</h3>
+    <div class="btn-group">
+      <a href="{% url 'deposit' %}" class="btn blue">💰 Deposit</a>
+      <a href="{%url 'withdraw' %}" class="btn green">💸 Withdraw</a>
+      <a href="{%url 'fund_transfer'%}" class="btn purple">🔁 Transfer</a>
+      <a href="{%url 'transaction_history' %}" class="btn gray">📄 Transactions</a>
+      <a href="{% url 'logout' %}" class="btn red">🚪 Logout</a>
+      <a href="{% url 'delete_account' %}" class="btn" style="background-color: red;">🗑️ Delete Account</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

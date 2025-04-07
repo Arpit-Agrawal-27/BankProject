@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %}Home - Pigi Bank{% endblock %}
+{% block content %}
+<section class="home-container">
+    <div class="welcome-box">
+        {% if messages %}
+      <div class="message-box">
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}" class="alert">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+        <h1>Welcome to <span>Pigi Bank</span></h1>
+        <p>Your Trusted Financial Partner.</p>
+        <div class="btn-group">
+            <a href="{% url 'login' %}" class="btn">Login</a>
+            <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+            </div><br>
+            <p>Already registered? <br><a href="{% url 'userlogin' %}" class='btn'>Create Username</a></p>
+        
+    </div>
+</section>
+{% endblock %}

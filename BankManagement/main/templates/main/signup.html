@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block title %}Sign Up - Pigi Bank{% endblock %}
+{% block content %}
+<section class="form-container">
+    <div class="form-box">
+        <h2>Create Your Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="date" name="dob" placeholder="Date of Birth" required>
+            <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
+            <input type="text" name="city" placeholder="City" required>
+            <input type="text" name="country" placeholder="Country" required>
+            <input type="text" name="pincode" placeholder="Pincode" required>
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
