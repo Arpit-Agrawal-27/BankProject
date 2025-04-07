@@ -78,10 +78,15 @@ WSGI_APPLICATION = 'BankManagement.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'b3f8ekpnzsiln9wi9isk',
+        'USER': 'uhymappkfy4helut',
+        'PASSWORD': 'UPesO5AxJ7Z9Myig5H2R',
+        'HOST': 'b3f8ekpnzsiln9wi9isk-mysql.services.clever-cloud.com',  
+        'PORT': '3306',
     }
 }
+
 
 
 
@@ -109,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
