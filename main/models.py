@@ -48,4 +48,4 @@ class Transaction(models.Model):
     receiver = models.ForeignKey(BankUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='received_transactions')  # for transfer
 
     def __str__(self):
-        return f"{self.bank_user.name} - {self.get_transaction_type_display()} - ₹{self.amount}"
+        return f"{self.bank_user.name} - {self.get_transaction_type_display()} - Rs. {self.amount}"

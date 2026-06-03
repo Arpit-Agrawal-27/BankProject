@@ -1,28 +1,25 @@
 {% extends 'main/base.html' %}
-{% block title %}Withdraw{% endblock %}
+{% block title %}Withdraw - Pigi Bank{% endblock %}
 
 {% block content %}
-<section class="form-container">
+<section class="form-container page-shell">
   <div class="form-box">
-    <h2>Withdraw Money</h2>
+    <div class="section-heading">
+      <p class="eyebrow">Cash out</p>
+      <h1>Withdraw money</h1>
+      <p>Your current balance is <strong>Rs. {{ user.balance }}</strong>.</p>
+    </div>
 
-    {% if messages %}
-      {% for message in messages %}
-        <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">{{ message }}</p>
-      {% endfor %}
-    {% endif %}
-
-    <form method="POST">
+    <form method="POST" class="stacked-form">
       {% csrf_token %}
-      <input type="number" name="amount" placeholder="Enter amount" step="0.01" required>
-      <button type="submit" class="btn">Withdraw</button>
+      <div class="field-group">
+        <label for="amount">Amount</label>
+        <input id="amount" type="number" name="amount" placeholder="Enter amount" step="0.01" min="1" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Withdraw</button>
     </form>
 
-    <p>Current Balance: ₹{{ user.balance }}</p>
-    <div class="center-btn">
-    <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
+    <p class="form-footer"><a href="{% url 'bank_dashboard' %}">Back to dashboard</a></p>
   </div>
-  </div>
-  
 </section>
 {% endblock %}

@@ -1,23 +1,28 @@
 {% extends 'main/base.html' %}
 {% block title %}Home - Pigi Bank{% endblock %}
 {% block content %}
-<section class="home-container">
-    <div class="welcome-box">
-        {% if messages %}
-      <div class="message-box">
-        {% for message in messages %}
-          <div class="alert {{ message.tags }}" class="alert">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-        <h1>Welcome to <span>Pigi Bank</span></h1>
-        <p>Your Trusted Financial Partner.</p>
-        <div class="btn-group">
-            <a href="{% url 'login' %}" class="btn">Login</a>
-            <a href="{% url 'signup' %}" class="btn">Sign Up</a>
-            </div><br>
-            <p>Already registered? <br><a href="{% url 'userlogin' %}" class='btn'>Create Username</a></p>
-        
+<section class="hero page-shell">
+    <div class="hero-copy">
+        <p class="eyebrow">Simple digital banking</p>
+        <h1>Pigi Bank</h1>
+        <p class="lead">Open an account, create secure login credentials, and manage deposits, withdrawals, transfers, and transaction history from one clear dashboard.</p>
+        <div class="hero-actions">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-secondary">Open Account</a>
+        </div>
+        <p class="inline-help">Already registered? <a href="{% url 'userlogin' %}">Create username and password</a></p>
+    </div>
+
+    <div class="hero-panel" aria-label="Account setup overview">
+        <div>
+            <span class="metric-label">Start here</span>
+            <strong>3 quick steps</strong>
+        </div>
+        <ol class="step-list">
+            <li>Register your account details.</li>
+            <li>Create your login credentials.</li>
+            <li>Use your banking dashboard.</li>
+        </ol>
     </div>
 </section>
 {% endblock %}

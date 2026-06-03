@@ -1,20 +1,21 @@
 {% extends 'main/base.html' %}
-{% block title %}Delete Account{% endblock %}
+{% block title %}Delete Account - Pigi Bank{% endblock %}
 
 {% block content %}
-<section class="form-container">
-  <div class="form-box">
-    <h2>⚠️ Delete Account</h2>
-    <p>Are you sure you want to delete your account, <strong>{{ user.name }}</strong>? This action cannot be undone.</p>
+<section class="form-container page-shell">
+  <div class="form-box danger-box">
+    <div class="section-heading">
+      <p class="eyebrow">Permanent action</p>
+      <h1>Delete account</h1>
+      <p>Are you sure you want to delete your account, <strong>{{ user.name }}</strong>? This action cannot be undone.</p>
+    </div>
 
-    <form method="POST">
+    <form method="POST" class="stacked-form">
       {% csrf_token %}
-      <button type="submit" class="btn" style="background-color: red;">Yes, Delete My Account</button>
+      <button type="submit" class="btn btn-danger">Yes, delete my account</button>
     </form>
 
-    <div class="center-btn" style="margin-top: 15px;">
-      <a href="{% url 'bank_dashboard' %}" class="btn">Cancel</a>
-    </div>
+    <p class="form-footer"><a href="{% url 'bank_dashboard' %}">Cancel and return to dashboard</a></p>
   </div>
 </section>
 {% endblock %}

@@ -1,29 +1,72 @@
-{% extends 'main/base.html' %} {% block title %}Dashboard - Pigi Bank{% endblock%} 
+{% extends 'main/base.html' %}
+{% block title %}Dashboard - Pigi Bank{% endblock %}
 {% block content %}
-<div class="dashboard-wrapper">
-  <div class="profile-section">
-    <div class="profile-header">
-      <h2>👤 {{ user.name }}</h2>
-      <p>Account Number: <strong>{{ user.account_number }}</strong></p>
+<section class="dashboard-wrapper page-shell">
+  <div class="dashboard-header">
+    <div>
+      <p class="eyebrow">Account dashboard</p>
+      <h1>Hello, {{ user.name }}</h1>
+      <p>Account number <strong>{{ user.account_number }}</strong></p>
     </div>
-    <div class="profile-details">
-      <p><strong>DOB:</strong> {{ user.dob }}</p>
-      <p><strong>Gender:</strong> {{ user.gender }}</p>
-      <p><strong>City:</strong> {{ user.city }}</p>
-      <p><strong>Country:</strong> {{ user.country }}</p>
-      <p><strong>Pincode:</strong> {{ user.pincode }}</p>
+    <div class="balance-card">
+      <span>Available balance</span>
+      <strong>Rs. {{ user.balance }}</strong>
     </div>
   </div>
-  <div class="action-buttons">
-    <h3>💼 Bank Actions</h3>
-    <div class="btn-group">
-      <a href="{% url 'deposit' %}" class="btn blue">💰 Deposit</a>
-      <a href="{%url 'withdraw' %}" class="btn green">💸 Withdraw</a>
-      <a href="{%url 'fund_transfer'%}" class="btn purple">🔁 Transfer</a>
-      <a href="{%url 'transaction_history' %}" class="btn gray">📄 Transactions</a>
-      <a href="{% url 'logout' %}" class="btn red">🚪 Logout</a>
-      <a href="{% url 'delete_account' %}" class="btn" style="background-color: red;">🗑️ Delete Account</a>
-    </div>
+
+  <div class="dashboard-grid">
+    <section class="profile-section" aria-labelledby="profile-title">
+      <h2 id="profile-title">Profile details</h2>
+      <dl class="detail-list">
+        <div>
+          <dt>Date of birth</dt>
+          <dd>{{ user.dob }}</dd>
+        </div>
+        <div>
+          <dt>Gender</dt>
+          <dd>{{ user.get_gender_display }}</dd>
+        </div>
+        <div>
+          <dt>City</dt>
+          <dd>{{ user.city }}</dd>
+        </div>
+        <div>
+          <dt>Country</dt>
+          <dd>{{ user.country }}</dd>
+        </div>
+        <div>
+          <dt>Pincode</dt>
+          <dd>{{ user.pincode }}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="action-panel" aria-labelledby="actions-title">
+      <h2 id="actions-title">Bank actions</h2>
+      <div class="action-grid">
+        <a href="{% url 'deposit' %}" class="action-card">
+          <span>Deposit</span>
+          <strong>Add money</strong>
+        </a>
+        <a href="{% url 'withdraw' %}" class="action-card">
+          <span>Withdraw</span>
+          <strong>Take out funds</strong>
+        </a>
+        <a href="{% url 'fund_transfer' %}" class="action-card">
+          <span>Transfer</span>
+          <strong>Send to an account</strong>
+        </a>
+        <a href="{% url 'transaction_history' %}" class="action-card">
+          <span>Transactions</span>
+          <strong>View history</strong>
+        </a>
+      </div>
+
+      <div class="dashboard-actions">
+        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+        <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+      </div>
+    </section>
   </div>
-</div>
+</section>
 {% endblock %}

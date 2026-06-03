@@ -3,16 +3,32 @@
 {% block title %}Login - Pigi Bank{% endblock %}
 
 {% block content %}
-<section class="form-container">
-<div class="form-box">
-  <h2>Login to Your Account</h2>
-  <form method="POST">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Enter Username" required>
-    <input type="password" name="password" placeholder="Enter Password" required>
-    <button type="submit" class='btn'>Login</button>
-  </form>
-  <p>Don’t have an account? <a href="{% url 'signup' %}">Sign up</a></p>
-</div>
+<section class="form-container page-shell">
+  <div class="form-box">
+    <div class="section-heading">
+      <p class="eyebrow">Welcome back</p>
+      <h1>Login to your account</h1>
+      <p>Use the username and password created for your bank account.</p>
+    </div>
+
+    {% if error %}
+      <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" class="stacked-form">
+      {% csrf_token %}
+      <div class="field-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Enter username" autocomplete="username" required>
+      </div>
+      <div class="field-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Enter password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <p class="form-footer">Do not have an account? <a href="{% url 'signup' %}">Open one now</a></p>
+  </div>
 </section>
 {% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import BankUserForm,WithdrawForm
 from .models import BankUser,Userlogin,Transaction
 from django.contrib import messages
@@ -50,9 +50,11 @@ def register_user(request):
 def registration_success(request):
     user_id = request.session.get('registered_user_id')
 
-    if user_id:
-        user = BankUser.objects.get(id=user_id)
-        return render(request, 'main/registration_success.html', {'user': user})
+    if not user_id:
+        return redirect('signup')
+
+    user = get_object_or_404(BankUser, id=user_id)
+    return render(request, 'main/registration_success.html', {'user': user})
 
 
 
@@ -69,7 +71,7 @@ def create_userlogin_view(request):
 
             # Check if credentials already exist
             if Userlogin.objects.filter(bank_user=user).exists():
-                return render(request, 'main/create_userlogins.html', {
+                return render(request, 'main/create_userlogin.html', {
                     'error': 'Credentials already created for this account.'
                 })
 
@@ -154,7 +156,7 @@ def withdraw_view(request):
                 description="ATM Withdrawal"
             )
 
-            messages.success(request, f"₹{amount} withdrawn successfully.")
+            messages.success(request, f"Rs. {amount} withdrawn successfully.")
 
     return render(request, 'main/withdraw.html', {'user': user})
 
@@ -163,8 +165,11 @@ def withdraw_view(request):
 
 
 def fund_transfer(request):
+    sender_id = request.session.get('user_id')
+    if not sender_id:
+        return redirect('login')
+
     if request.method == "POST":
-        sender_id = request.session.get('user_id')
         receiver_acc = request.POST.get('receiver_account')
         amount_str = request.POST.get('amount')
 
@@ -172,6 +177,9 @@ def fund_transfer(request):
             amount = Decimal(amount_str)
         except:
             return render(request, 'main/fund_transfer.html', {'error': 'Invalid amount'})
+
+        if amount <= 0:
+            return render(request, 'main/fund_transfer.html', {'error': 'Amount must be greater than zero'})
 
         try:
             sender = BankUser.objects.get(id=sender_id)
@@ -210,7 +218,7 @@ def fund_transfer(request):
             )
 
             return render(request, 'main/fund_transfer.html', {
-                'success': f'Transferred ₹{amount} to {receiver.name} ({receiver.account_number})',
+                'success': f'Transferred Rs. {amount} to {receiver.name} ({receiver.account_number})',
                 'sender': sender
             })
 

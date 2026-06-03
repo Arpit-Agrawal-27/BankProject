@@ -1,28 +1,34 @@
 {% extends 'main/base.html' %}
-{% block title %}Deposit{% endblock %}
+{% block title %}Deposit - Pigi Bank{% endblock %}
 {% block content %}
-<section class="form-container">
+<section class="form-container page-shell">
   <div class="form-box">
-    <h2>Deposit Money</h2>
+    <div class="section-heading">
+      <p class="eyebrow">Add funds</p>
+      <h1>Deposit money</h1>
+      <p>Your current balance is <strong>Rs. {{ user.balance }}</strong>.</p>
+    </div>
 
     {% if success %}
-      <p style="color:green;">You deposited ₹{{ amount }} successfully.</p>
-      <p>New Balance: ₹{{ user.balance }}</p>
+      <div class="alert alert-success">
+        You deposited Rs. {{ amount }} successfully. New balance: Rs. {{ user.balance }}.
+      </div>
     {% endif %}
 
     {% if error %}
-      <p style="color:red;">{{ error }}</p>
+      <div class="alert alert-error">{{ error }}</div>
     {% endif %}
 
-    <form method="POST">
+    <form method="POST" class="stacked-form">
       {% csrf_token %}
-      <input type="number" name="amount" step="0.01" placeholder="Enter amount to deposit" required>
-      <button type="submit" class="btn">Deposit</button>
+      <div class="field-group">
+        <label for="amount">Amount</label>
+        <input id="amount" type="number" name="amount" step="0.01" min="1" placeholder="Enter amount to deposit" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Deposit</button>
     </form>
 
-    <div class="center-btn" style="margin-top: 20px;">
-      <a href="{% url 'bank_dashboard' %}" class="btn">Back to Dashboard</a>
-    </div>
+    <p class="form-footer"><a href="{% url 'bank_dashboard' %}">Back to dashboard</a></p>
   </div>
 </section>
 {% endblock %}

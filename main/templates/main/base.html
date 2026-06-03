@@ -1,4 +1,4 @@
-{% load static %} 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
   <head>
@@ -6,48 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Pigi Bank{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'main/style.css' %}" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
 
   <body>
-    <!-- Header -->
-    <header class="header">
-      <div></div> <!-- Empty div for flex spacing -->
-      <div class="bank-home">🏦 Pigi Bank</div>
-      <div class="theme-toggle">
-        <input type="checkbox" id="theme-switch">
-        <label for="theme-switch" class="toggle-btn">
-          <span class="toggle-icon">☀️</span>
-          <span class="toggle-text">Light</span>
-          <span class="ball"></span>
-        </label>
+    <header class="site-header">
+      <div class="page-shell nav-shell">
+        <a class="brand" href="{% url 'home' %}" aria-label="Pigi Bank home">
+          <span class="brand-mark">PB</span>
+          <span>Pigi Bank</span>
+        </a>
+
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a href="{% url 'home' %}">Home</a>
+          {% if request.session.user_id %}
+            <a href="{% url 'bank_dashboard' %}">Dashboard</a>
+            <a href="{% url 'transaction_history' %}">Transactions</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+          {% endif %}
+        </nav>
+
+        <div class="theme-toggle">
+          <input type="checkbox" id="theme-switch" aria-label="Toggle dark theme">
+          <label for="theme-switch" class="toggle-btn">
+            <span class="toggle-text">Light</span>
+            <span class="ball" aria-hidden="true">
+              <span class="toggle-icon" aria-hidden="true"></span>
+            </span>
+          </label>
+        </div>
       </div>
     </header>
 
-    <!-- News Marquee -->
-    <div class="news-bar">
-      <marquee behavior="scroll" direction="left">
-        🚀 0% interest on education loans! | 💰 Home loan at just 6.5% | 💳
-        Apply for our Platinum Credit Card!
-      </marquee>
+    <div class="notice-bar" aria-label="Current bank offers">
+      <div class="notice-track">
+        <span>Education loans at 0% interest</span>
+        <span>Home loans from 6.5%</span>
+        <span>Apply for Platinum Credit Card</span>
+        <span>Education loans at 0% interest</span>
+        <span>Home loans from 6.5%</span>
+        <span>Apply for Platinum Credit Card</span>
+      </div>
     </div>
 
-    <!-- Main Content -->
-
-    <main>
-      
+    <main class="app-main">
+      {% if messages %}
+        <div class="page-shell flash-stack">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
       {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <p>📞 Contact us: 1800-111-222 | ✉️ support@pigibank.com</p>
-      <p>&copy; 2025 Pigi Bank. All rights reserved.</p>
+    <footer class="site-footer">
+      <div class="page-shell footer-shell">
+        <p>Contact us: 1800-111-222 | support@pigibank.com</p>
+        <p>&copy; 2026 Pigi Bank. All rights reserved.</p>
+      </div>
     </footer>
     <script src="{% static 'main/script.js' %}" defer></script>
   </body>
 </html>
-

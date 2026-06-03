@@ -1,42 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const themeSwitch = document.getElementById("theme-switch")
-    const toggleText = document.querySelector(".toggle-text")
-    const toggleIcon = document.querySelector(".toggle-icon")
-  
-    // Check for saved theme preference or use device preference
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-  
-    // Set initial theme based on saved preference or device preference
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      document.documentElement.setAttribute("data-theme", "dark")
-      themeSwitch.checked = true
-      toggleText.textContent = "Dark"
-      toggleIcon.textContent = "🌙"
+  const root = document.documentElement;
+  const themeSwitch = document.getElementById("theme-switch");
+
+  if (!themeSwitch) {
+    return;
+  }
+
+  const toggleText = document.querySelector(".toggle-text");
+  const savedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  function applyTheme(theme) {
+    const isDark = theme === "dark";
+    root.setAttribute("data-theme", theme);
+    themeSwitch.checked = isDark;
+    themeSwitch.setAttribute("aria-label", isDark ? "Switch to light theme" : "Switch to dark theme");
+
+    if (toggleText) {
+      toggleText.textContent = isDark ? "Dark" : "Light";
     }
-  
-    // Handle theme toggle with smooth transition
-    themeSwitch.addEventListener("change", function () {
-      // Add transition class to body for smoother theme change
-      document.body.style.transition = "background-color 0.5s ease, color 0.5s ease"
-  
-      if (this.checked) {
-        document.documentElement.setAttribute("data-theme", "dark")
-        localStorage.setItem("theme", "dark")
-        toggleText.textContent = "Dark"
-        toggleIcon.textContent = "🌙"
-      } else {
-        document.documentElement.setAttribute("data-theme", "light")
-        localStorage.setItem("theme", "light")
-        toggleText.textContent = "Light"
-        toggleIcon.textContent = "☀️"
-      }
-  
-      // Remove transition after theme change is complete
-      setTimeout(() => {
-        document.body.style.transition = ""
-      }, 500)
-    })
-  })
-  
-  
+  }
+
+  applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+  themeSwitch.addEventListener("change", () => {
+    const nextTheme = themeSwitch.checked ? "dark" : "light";
+    localStorage.setItem("theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+});
